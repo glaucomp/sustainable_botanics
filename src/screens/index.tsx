@@ -1,7 +1,9 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
+
+//import React, {useContext, useState} from 'react';
 
 import {Route, Routes} from 'react-router-native';
-import {AuthContext} from '../contexts/authContext';
+//import {AuthContext} from '../contexts/authContext';
 
 import LoginScreen from './login';
 import ForgotPasswordScreen from './forgotPassword';
