@@ -1,8 +1,12 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import {t} from 'react-native-tailwindcss';
+import {View} from 'react-native';
+import {KeyboardAvoidingView, Platform} from 'react-native';
+import {SafeAreaViewProvider} from './src/contexts/safeAreaViewContext';
 
 import SplashScreen from 'react-native-splash-screen';
+import {NativeRouter} from 'react-router-native';
+
+import Screens from './src/screens';
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -14,10 +18,16 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <View style={[t.flex1, t.itemsCenter, t.justifyCenter]}>
-        <Text style={(t.selfCenter, t.alignCenter, t.bgBlue500)}>
-          Hello World
-        </Text>
+      <View>
+        <NativeRouter>
+          <SafeAreaViewProvider>
+            <KeyboardAvoidingView
+              className="h-full"
+              behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+              <Screens />
+            </KeyboardAvoidingView>
+          </SafeAreaViewProvider>
+        </NativeRouter>
       </View>
     );
   }
