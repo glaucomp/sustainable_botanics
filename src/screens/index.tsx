@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
-
-//import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 
 import {Route, Routes} from 'react-router-native';
-//import {AuthContext} from '../contexts/authContext';
+import {AuthContext} from '../contexts/authContext';
 
 import LoginScreen from './login';
 import ForgotPasswordScreen from './forgotPassword';
@@ -16,8 +14,8 @@ const Screens = () => {
   //console.log('navigating to initialUrl', initialUrl);
   //navigate(initialUrl);
   // });
-  //const {isSignedIn} = useContext(AuthContext);
-  const [isSignedIn] = useState(false);
+  const {isSignedIn} = useContext(AuthContext);
+  //const [isSignedIn] = useState(false);
 
   console.log('isSignedIn', isSignedIn);
 

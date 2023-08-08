@@ -1,7 +1,7 @@
 import React from 'react';
-import {View} from 'react-native';
-import {KeyboardAvoidingView, Platform} from 'react-native';
+import {KeyboardAvoidingView, Platform, View} from 'react-native';
 import {SafeAreaViewProvider} from './src/contexts/safeAreaViewContext';
+import {AuthProvider} from './src/contexts/authContext';
 
 import SplashScreen from 'react-native-splash-screen';
 import {NativeRouter} from 'react-router-native';
@@ -20,13 +20,15 @@ export default class App extends React.Component {
     return (
       <View>
         <NativeRouter>
-          <SafeAreaViewProvider>
-            <KeyboardAvoidingView
-              className="h-full"
-              behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-              <Screens />
-            </KeyboardAvoidingView>
-          </SafeAreaViewProvider>
+          <AuthProvider>
+            <SafeAreaViewProvider>
+              <KeyboardAvoidingView
+                className="h-full"
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                <Screens />
+              </KeyboardAvoidingView>
+            </SafeAreaViewProvider>
+          </AuthProvider>
         </NativeRouter>
       </View>
     );
