@@ -11,6 +11,8 @@ export interface AuthContextType {
   loadingAuth: boolean;
   authErrors: AuthErrors | undefined;
   login: (email: string, password: string) => Promise<boolean>;
+  logout: (callback?: () => void) => void;
+  currentUser: User | undefined;
   isSignedIn: boolean;
 }
 export interface AuthErrors {
@@ -59,7 +61,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
     //},
     //);
     //if (response) {
-    console.log('Logged in');
+    console.log('Logged in ' + password);
     /*var user = new User();
     user.id = 1;
     user.email = email;
@@ -96,10 +98,18 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
     return null;
   };
 
+  const logout = () => {
+    console.log('Logged out');
+    setCurrentUser(undefined);
+    //setAccessToken(undefined);
+    //AsyncStorage.multiRemove([StorageKeys.user, StorageKeys.accessToken]);
+  };
+
   const value = {
     authErrors,
     loadingAuth,
     login,
+    logout,
     isSignedIn,
   };
 
