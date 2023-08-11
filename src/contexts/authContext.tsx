@@ -2,15 +2,24 @@ import {createContext, useEffect, useState} from 'react';
 //import {Alert} from 'react-native';
 import {useNavigate} from 'react-router-native';
 import {User} from '../models/User';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+//import AsyncStorage from '@react-native-async-storage/async-storage';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import axios from 'axios';
 
 //import i18n from '../../i18n';
-import {StorageKeys, getUserFromStorage} from '../utils/storage';
+//import {StorageKeys, getUserFromStorage} from '../utils/storage';
 
 export interface AuthContextType {
   loadingAuth: boolean;
   authErrors: AuthErrors | undefined;
   login: (email: string, password: string) => Promise<boolean>;
+  loginGoogle: (
+    email_google: string,
+    idToken: string,
+    first_name: string,
+    last_name: string,
+    google_id: string,
+  ) => Promise<boolean>;
   logout: (callback?: () => void) => void;
   currentUser: User | undefined;
   isSignedIn: boolean;
@@ -97,18 +106,74 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
     //}
     return null;
   };
+  const loginGoogle = async (
+    email_google: string,
+    idToken: string,
+    first_name: string,
+    last_name: string,
+    google_id: string,
+  ) => {
+    setAuthErrors(undefined);
+    const user: User = {
+      email: email_google,
+      first_name: first_name,
+      id: 1,
+      last_name: last_name,
+      google_idToken: idToken,
+      google_id: google_id,
+    };
+    insertUser(user);
+    return null;
+  };
+
+  async function insertUser(user: User) {
+    const postUser = {
+      email: user.email,
+      first_name: user.first_name,
+      id: 0,
+      last_name: user.last_name,
+      google_idToken: user.idToken,
+      google_id: user.google_id,
+    };
+
+    try {
+      const response = await axios.post(
+        'https://sustainablebotanics.shop/insert_user.php',
+        postUser,
+        {
+          headers: {
+            accept: 'application/json',
+            'content-type': 'application/json', // Updated content-type header
+          },
+        },
+      );
+
+      console.log('Response:', response.data);
+      setCurrentUser(user);
+      navigate('/main');
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
 
   const logout = () => {
     console.log('Logged out');
     setCurrentUser(undefined);
     //setAccessToken(undefined);
     //AsyncStorage.multiRemove([StorageKeys.user, StorageKeys.accessToken]);
+    try {
+      GoogleSignin.signOut();
+      // Perform any additional logout-related tasks here
+    } catch (error) {
+      console.error('Error GoogleSignin out:', error);
+    }
   };
 
   const value = {
     authErrors,
     loadingAuth,
     login,
+    loginGoogle,
     logout,
     isSignedIn,
   };

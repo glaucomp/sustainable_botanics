@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "683030801714",
+    "project_id": "sustainable-botanics",
+    "storage_bucket": "sustainable-botanics.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683030801714:android:3f3ebf62779cb8e5a9fb2b",
+        "android_client_info": {
+          "package_name": "com.sustainable_botanics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683030801714-oqfn3ok55rlsslqhd1nnsf2fkhmpviqe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sustainable_botanics",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "683030801714-994rmvalbn1v4d6tn6rknku4r7ovpiju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNLgtduyLg3Il5Y8fTXD8RQuzQkYN0ZA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683030801714-994rmvalbn1v4d6tn6rknku4r7ovpiju.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "683030801714-0bifij1vo01j5emsdnc4dq233idqfuo0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.sustainable-botanics"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

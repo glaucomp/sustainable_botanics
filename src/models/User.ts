@@ -2,7 +2,10 @@ export interface User {
   email: string;
   first_name: string;
   id: number;
-  //is_2fa_enabled?: boolean
+  photo_url?: string;
   last_name: string;
   phone_number?: string;
+  google_idToken?: string;
+  google_id?: string;
+  //is_2fa_enabled?: boolean
 }

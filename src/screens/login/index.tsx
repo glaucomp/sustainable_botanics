@@ -2,12 +2,13 @@ import React, {useState, useContext} from 'react';
 import {Text, View, Button, TouchableOpacity, TextInput} from 'react-native';
 import {useNavigate} from 'react-router-native';
 import {AuthContext} from '../../contexts/authContext';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const LoginScreen = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {login} = useContext(AuthContext);
+  const {login, loginGoogle} = useContext(AuthContext);
   //const [loggingIn, setLoggingIn] = useState(false);
 
   const handlePress = () => {
@@ -49,6 +50,16 @@ const LoginScreen = () => {
     // }
   };
 
+  const onLoginGoogle = async (
+    email_google: string,
+    idToken: string,
+    first_name: string,
+    last_name: string,
+    google_id: string,
+  ) => {
+    loginGoogle(email_google, idToken, first_name, last_name, google_id);
+  };
+
   return (
     <View className="flex h-screen w-screen">
       <View className={'flex-1 justify-center items-center p-4'}>
@@ -85,6 +96,49 @@ const LoginScreen = () => {
       <View className="justify-center h-screen w-screen p-5">
         <Button onPress={handlePress} title="Forget password!" />
       </View>
+      <Button
+        title={'Sign in with Google'}
+        onPress={() => {
+          GoogleSignin.configure({
+            androidClientId:
+              '683030801714-oqfn3ok55rlsslqhd1nnsf2fkhmpviqe.apps.googleusercontent.com',
+            iosClientId:
+              '683030801714-0bifij1vo01j5emsdnc4dq233idqfuo0.apps.googleusercontent.com',
+            scopes: ['profile', 'email'],
+          });
+          GoogleSignin.hasPlayServices()
+            .then(hasPlayService => {
+              if (hasPlayService) {
+                GoogleSignin.signIn()
+                  .then(userInfo => {
+                    console.log(JSON.stringify(userInfo));
+                    try {
+                      const email_google = userInfo.user.email;
+                      const idToken = userInfo.idToken;
+                      const first_name = userInfo.user.givenName;
+                      const last_name = userInfo.user.familyName;
+                      const google_id = userInfo.user.id;
+                      onLoginGoogle(
+                        email_google,
+                        idToken,
+                        first_name,
+                        last_name,
+                        google_id,
+                      );
+                    } catch (error) {
+                      console.error('Error parsing JSON:', error);
+                    }
+                  })
+                  .catch(e => {
+                    console.log('ERROR IS: ' + JSON.stringify(e));
+                  });
+              }
+            })
+            .catch(e => {
+              console.log('ERROR IS: ' + JSON.stringify(e));
+            });
+        }}
+      />
     </View>
   );
 };
