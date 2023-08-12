@@ -10,6 +10,7 @@ import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativegooglesignin.RNGoogleSigninPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
@@ -38,7 +39,8 @@ public class MainApplication extends Application implements ReactApplication {
                     return Arrays.asList(
                             new MainReactPackage(),
                             new SplashScreenReactPackage(),
-                            new RNGoogleSigninPackage()
+                            new RNGoogleSigninPackage(),
+                            new AsyncStoragePackage()
                     );
                 }
 

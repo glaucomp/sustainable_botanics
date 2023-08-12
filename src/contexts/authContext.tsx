@@ -2,9 +2,10 @@ import {createContext, useEffect, useState} from 'react';
 //import {Alert} from 'react-native';
 import {useNavigate} from 'react-router-native';
 import {User} from '../models/User';
-//import AsyncStorage from '@react-native-async-storage/async-storage';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 //import i18n from '../../i18n';
 //import {StorageKeys, getUserFromStorage} from '../utils/storage';
@@ -117,7 +118,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
     const user: User = {
       email: email_google,
       first_name: first_name,
-      id: 1,
+      id: 0,
       last_name: last_name,
       google_idToken: idToken,
       google_id: google_id,
@@ -127,29 +128,21 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
   };
 
   async function insertUser(user: User) {
-    const postUser = {
-      email: user.email,
-      first_name: user.first_name,
-      id: 0,
-      last_name: user.last_name,
-      google_idToken: user.idToken,
-      google_id: user.google_id,
-    };
-
     try {
       const response = await axios.post(
         'https://sustainablebotanics.shop/insert_user.php',
-        postUser,
+        user,
         {
           headers: {
             accept: 'application/json',
-            'content-type': 'application/json', // Updated content-type header
+            'content-type': 'application/json',
           },
         },
       );
 
       console.log('Response:', response.data);
       setCurrentUser(user);
+      AsyncStorage.setItem('user', JSON.stringify(user));
       navigate('/main');
     } catch (error) {
       console.error('Error:', error);
