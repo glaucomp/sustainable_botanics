@@ -1,7 +1,8 @@
 import React from 'react';
-import {KeyboardAvoidingView, Platform, View} from 'react-native';
+import {KeyboardAvoidingView, Platform} from 'react-native';
 import {SafeAreaViewProvider} from './src/contexts/safeAreaViewContext';
 import {AuthProvider} from './src/contexts/authContext';
+import NavBarWrapper from './src/components/NavWrapper';
 
 import SplashScreen from 'react-native-splash-screen';
 import {NativeRouter} from 'react-router-native';
@@ -18,9 +19,9 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <View>
-        <NativeRouter>
-          <AuthProvider>
+      <NativeRouter>
+        <AuthProvider>
+          <NavBarWrapper>
             <SafeAreaViewProvider>
               <KeyboardAvoidingView
                 className="h-full"
@@ -28,9 +29,9 @@ export default class App extends React.Component {
                 <Screens />
               </KeyboardAvoidingView>
             </SafeAreaViewProvider>
-          </AuthProvider>
-        </NativeRouter>
-      </View>
+          </NavBarWrapper>
+        </AuthProvider>
+      </NativeRouter>
     );
   }
 }

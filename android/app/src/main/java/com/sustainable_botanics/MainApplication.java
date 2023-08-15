@@ -16,7 +16,7 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import java.util.Arrays;
 import java.util.List;
-
+import com.horcrux.svg.SvgPackage;
 public class MainApplication extends Application implements ReactApplication {
 
     private final ReactNativeHost mReactNativeHost =
@@ -40,7 +40,8 @@ public class MainApplication extends Application implements ReactApplication {
                             new MainReactPackage(),
                             new SplashScreenReactPackage(),
                             new RNGoogleSigninPackage(),
-                            new AsyncStoragePackage()
+                            new AsyncStoragePackage(),
+                            new SvgPackage()
                     );
                 }
 
