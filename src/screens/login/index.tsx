@@ -61,7 +61,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <View className="flex h-screen w-screen">
+    <View className="flex h-screen w-screen justify-center">
       {signInWithEmail ? (
         <View className={'flex-1 justify-center items-center p-4'}>
           <Button
@@ -99,7 +99,7 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
       ) : (
-        <View className="justify-center h-screen w-screen p-5">
+        <View className="justify-center items-center content-center h-screen w-screen p-5">
           <View className="flex h-screen w-screen">
             <View className="justify-center h-screen w-screen p-5">
               <Button

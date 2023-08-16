@@ -17,6 +17,8 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import java.util.Arrays;
 import java.util.List;
 import com.horcrux.svg.SvgPackage;
+import com.reactnativecommunity.blurview.BlurViewPackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
     private final ReactNativeHost mReactNativeHost =
@@ -41,7 +43,8 @@ public class MainApplication extends Application implements ReactApplication {
                             new SplashScreenReactPackage(),
                             new RNGoogleSigninPackage(),
                             new AsyncStoragePackage(),
-                            new SvgPackage()
+                            new SvgPackage(),
+                            new BlurViewPackage() 
                     );
                 }
 
