@@ -1,7 +1,7 @@
-import React from 'react';
-import {View, ImageBackground, Image} from 'react-native';
+import React, {useState} from 'react';
+import {View, ImageBackground, Animated, Pressable, Text} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
-import StyledButton, {ButtonType} from '../../components/StyledButton';
+import ImageLoader from '../../components/ImageLoader';
 import {useNavigate} from 'react-router-native';
 
 const LaunchScreen = () => {
@@ -10,6 +10,16 @@ const LaunchScreen = () => {
   const handlePress = () => {
     navigate('/login');
   };
+  const [fadeAnim] = useState(new Animated.Value(0));
+
+  React.useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+      delay: 2500,
+    }).start();
+  }, [fadeAnim]);
 
   return (
     <View className="flex h-full w-full bg-fullscreen-image bg-cover">
@@ -48,32 +58,55 @@ const LaunchScreen = () => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <View className="flex flex-row items-center">
-          <Image
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <ImageLoader
+            duration={500}
+            delay={500}
             style={{
-              width: 50,
-              height: 50,
+              width: 250,
+              height: 250,
+              marginTop: '10%',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
-            source={require('../../assets/gif_background.gif')}
+            source={require('../../assets/logo_launch.png')}
           />
-          <Image
+          <ImageLoader
+            duration={1000}
+            delay={1000}
             style={{
-              width: 50,
-              height: 50,
-              marginTop: 130,
+              width: 300,
+              height: 100,
+              marginTop: '10%',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
-            source={require('../../assets/gif_background.gif')}
+            source={require('../../assets/sustainable_botanics_launch.png')}
           />
-          <StyledButton
-            type={ButtonType.None}
-            textClassNames="text-lg font-bold text-blue-900"
-            onPress={handlePress}
-            text="Sign in"
-            className="m-4"
+          <Animated.View
             style={{
-              marginTop: 150,
-            }}
-          />
+              opacity: fadeAnim,
+            }}>
+            <Pressable
+              onPress={handlePress}
+              className="mt-5 p-3 rounded-md h-12 items-center justify-center bg-transparent"
+              style={{
+                marginTop: '40%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                style={{
+                  fontFamily: 'Dosis',
+                  fontWeight: 'bold',
+                  alignSelf: 'center',
+                  fontSize: 20,
+                  color: '#ebeadf',
+                }}>
+                SIGN IN
+              </Text>
+            </Pressable>
+          </Animated.View>
         </View>
       </View>
     </View>

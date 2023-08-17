@@ -3,6 +3,8 @@ import {Text, View, Button, TouchableOpacity, TextInput} from 'react-native';
 import {useNavigate} from 'react-router-native';
 import {AuthContext} from '../../contexts/authContext';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import LabelText from '../../components/LabelText';
+import StyledButton, {ButtonType} from '../../components/StyledButton';
 
 const LoginScreen = () => {
   const navigate = useNavigate();
@@ -60,14 +62,54 @@ const LoginScreen = () => {
     loginGoogle(email_google, idToken, first_name, last_name, google_id);
   };
 
+  const onBackPress = async () => {
+    if (signInWithEmail) {
+      setSignInWithEmail(false);
+    } else {
+      navigate('/launch');
+    }
+  };
+
   return (
     <View className="flex h-screen w-screen justify-center">
+      <StyledButton
+        type={ButtonType.None}
+        textClassNames="text-sm font-bold text-blue-900"
+        text="<<"
+        className=""
+        onPress={() => onBackPress()}
+      />
+      <View className="m-4">
+        <LabelText
+          style={{
+            fontFamily: 'Dosis',
+            fontWeight: 'bold',
+            fontSize: 20,
+            color: '#BEC6AF',
+            margin: 10,
+            marginTop: 20,
+          }}>
+          {signInWithEmail ? 'Sign in with email' : 'Sign in to your account'}
+        </LabelText>
+      </View>
+      <View>
+        <LabelText
+          style={{
+            fontFamily: 'Dosis',
+            fontWeight: 'bold',
+            fontSize: 18,
+            color: '#BEC6AF',
+            margin: 10,
+            marginBottom: 20,
+          }}>
+          {signInWithEmail
+            ? 'Enter your user details below to sign in to you account'
+            : 'Choose the service below that you used to sign up'}
+        </LabelText>
+      </View>
+
       {signInWithEmail ? (
         <View className={'flex-1 justify-center items-center p-4'}>
-          <Button
-            onPress={() => setSignInWithEmail(false)}
-            title="back to sign in"
-          />
           <View style={'w-full mb-6'}>
             <TextInput
               className={'p-4 border border-gray-500 rounded'}
@@ -100,59 +142,60 @@ const LoginScreen = () => {
         </View>
       ) : (
         <View className="justify-center items-center content-center h-screen w-screen p-5">
-          <View className="flex h-screen w-screen">
-            <View className="justify-center h-screen w-screen p-5">
-              <Button
-                onPress={() => setSignInWithEmail(true)}
-                title="Sign in with email"
-              />
-            </View>
+          <View className="flex flex-row justify-center p-5 mx-4 space-x-4">
             <Button
-              title={'Sign in with Google'}
-              onPress={() => {
-                GoogleSignin.configure({
-                  androidClientId:
-                    '683030801714-oqfn3ok55rlsslqhd1nnsf2fkhmpviqe.apps.googleusercontent.com',
-                  iosClientId:
-                    '683030801714-0bifij1vo01j5emsdnc4dq233idqfuo0.apps.googleusercontent.com',
-                  scopes: ['profile', 'email'],
-                });
-                GoogleSignin.hasPlayServices()
-                  .then(hasPlayService => {
-                    if (hasPlayService) {
-                      GoogleSignin.signIn()
-                        .then(userInfo => {
-                          console.log(JSON.stringify(userInfo));
-                          try {
-                            const email_google = userInfo.user.email;
-                            const idToken = userInfo.idToken;
-                            const first_name = userInfo.user.givenName;
-                            const last_name = userInfo.user.familyName;
-                            const google_id = userInfo.user.id;
-                            onLoginGoogle(
-                              email_google,
-                              idToken,
-                              first_name,
-                              last_name,
-                              google_id,
-                            );
-                          } catch (error) {
-                            console.error('Error parsing JSON:', error);
-                          }
-                        })
-                        .catch(e => {
-                          console.log('ERROR IS: ' + JSON.stringify(e));
-                        });
-                    }
-                  })
-                  .catch(e => {
-                    console.log('ERROR IS: ' + JSON.stringify(e));
-                  });
+              style={{
+                color: '#ebeadf',
               }}
+              onPress={() => setSignInWithEmail(true)}
+              title="Sign in with email"
             />
-            <View className="justify-center h-screen w-screen p-5">
-              <Button onPress={handlePress} title="Forget password!" />
-            </View>
+          </View>
+          <Button
+            title={'Sign in with Google'}
+            onPress={() => {
+              GoogleSignin.configure({
+                androidClientId:
+                  '683030801714-oqfn3ok55rlsslqhd1nnsf2fkhmpviqe.apps.googleusercontent.com',
+                iosClientId:
+                  '683030801714-0bifij1vo01j5emsdnc4dq233idqfuo0.apps.googleusercontent.com',
+                scopes: ['profile', 'email'],
+              });
+              GoogleSignin.hasPlayServices()
+                .then(hasPlayService => {
+                  if (hasPlayService) {
+                    GoogleSignin.signIn()
+                      .then(userInfo => {
+                        console.log(JSON.stringify(userInfo));
+                        try {
+                          const email_google = userInfo.user.email;
+                          const idToken = userInfo.idToken;
+                          const first_name = userInfo.user.givenName;
+                          const last_name = userInfo.user.familyName;
+                          const google_id = userInfo.user.id;
+                          onLoginGoogle(
+                            email_google,
+                            idToken,
+                            first_name,
+                            last_name,
+                            google_id,
+                          );
+                        } catch (error) {
+                          console.error('Error parsing JSON:', error);
+                        }
+                      })
+                      .catch(e => {
+                        console.log('ERROR IS: ' + JSON.stringify(e));
+                      });
+                  }
+                })
+                .catch(e => {
+                  console.log('ERROR IS: ' + JSON.stringify(e));
+                });
+            }}
+          />
+          <View className="justify-center h-screen w-screen p-5">
+            <Button onPress={handlePress} title="Forget password!" />
           </View>
         </View>
       )}
