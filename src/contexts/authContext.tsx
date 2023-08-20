@@ -1,3 +1,4 @@
+import React from 'react';
 import {createContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-native';
 import {User} from '../models/User';
@@ -127,13 +128,19 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
     //setAccessToken(undefined);
     AsyncStorage.multiRemove(['user']);
     try {
+      GoogleSignin.configure({
+        androidClientId:
+          '683030801714-oqfn3ok55rlsslqhd1nnsf2fkhmpviqe.apps.googleusercontent.com',
+        iosClientId:
+          '683030801714-0bifij1vo01j5emsdnc4dq233idqfuo0.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
+      });
       GoogleSignin.signOut();
       // Perform any additional logout-related tasks here
     } catch (error) {
       console.error('Error GoogleSignin out:', error);
     }
   };
-
   const value = {
     authErrors,
     loadingAuth,

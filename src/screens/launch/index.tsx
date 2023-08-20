@@ -3,9 +3,12 @@ import {View, ImageBackground, Animated, Pressable, Text} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
 import ImageLoader from '../../components/ImageLoader';
 import {useNavigate} from 'react-router-native';
+import i18n from '../../../i18n';
 
 const LaunchScreen = () => {
   const navigate = useNavigate();
+  const userLanguage = navigator.language;
+  console.log('Detected Language:', userLanguage);
 
   const handlePress = () => {
     navigate('/login');
@@ -88,7 +91,7 @@ const LaunchScreen = () => {
                   fontSize: 20,
                   color: '#ebeadf',
                 }}>
-                SIGN IN
+                {i18n.t('launch.sign_in')}
               </Text>
             </Pressable>
           </Animated.View>

@@ -141,8 +141,8 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
       ) : (
-        <View className="justify-center items-center content-center h-screen w-screen p-5">
-          <View className="flex flex-row justify-center p-5 mx-4 space-x-4">
+        <View className="justify-center items-center content-center p-5">
+          <View className="flex flex-row justify-center p-5 mx-4">
             <Button
               style={{
                 color: '#ebeadf',
@@ -194,7 +194,7 @@ const LoginScreen = () => {
                 });
             }}
           />
-          <View className="justify-center h-screen w-screen p-5">
+          <View className="justify-center p-5">
             <Button onPress={handlePress} title="Forget password!" />
           </View>
         </View>

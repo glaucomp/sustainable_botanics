@@ -8,6 +8,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {NativeRouter} from 'react-router-native';
 
 import Screens from './src/screens';
+import './i18n';
 
 export default class App extends React.Component {
   componentDidMount() {
