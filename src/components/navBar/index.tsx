@@ -30,10 +30,10 @@ const NavBar = () => {
         selected={location.pathname.includes('/main')}
       />
       <NavItem
-        onPress={() => navigate('/main')}
+        onPress={() => navigate('/shelf')}
         name={i18n.t('nav.shelf')}
         Icon={ShelfIcon}
-        selected={location.pathname.includes('/main')}
+        selected={location.pathname.includes('/shelf')}
       />
       <NavItem
         onPress={() => navigate('/profile')}

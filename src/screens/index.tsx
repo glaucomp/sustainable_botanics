@@ -7,6 +7,7 @@ import LoginScreen from './login';
 import ForgotPasswordScreen from './forgotPassword';
 import MainScreen from './main';
 import ProfileScreen from './profile';
+import ShelfScreen from './shelf';
 
 const Screens = () => {
   const {isSignedIn} = useContext(AuthContext);
@@ -21,6 +22,7 @@ const Screens = () => {
           <Route path="/" element={<MainScreen />} />
           <Route path="/main" element={<MainScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/shelf" element={<ShelfScreen />} />
         </>
       ) : null}
     </Routes>
