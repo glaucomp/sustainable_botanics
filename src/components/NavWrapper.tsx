@@ -8,7 +8,6 @@ interface Props {
   children: React.ReactNode;
 }
 const NavBarWrapper = ({children}: Props) => {
-  console.log('NavBarWrapper');
   const location = useLocation();
   const {isSignedIn} = useContext(AuthContext);
 

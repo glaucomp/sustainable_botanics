@@ -47,18 +47,8 @@ const LaunchScreen = () => {
         blurType="light"
         blurAmount={10}
       />
-      <View
-        style={{
-          flex: 1,
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View className="flex-1 absolute top-0 left-0 bottom-0 right-0 items-center justify-center">
+        <View className="flex-1 justify-center items-center">
           <ImageLoader
             duration={500}
             delay={500}
@@ -89,12 +79,7 @@ const LaunchScreen = () => {
             }}>
             <Pressable
               onPress={handlePress}
-              className="mt-5 p-3 rounded-md h-12 items-center justify-center bg-transparent"
-              style={{
-                marginTop: '40%',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
+              className="mt-40 p-3 rounded-md h-12 items-center justify-center bg-transparent">
               <Text
                 style={{
                   fontFamily: 'Dosis',

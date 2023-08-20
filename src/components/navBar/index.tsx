@@ -31,7 +31,7 @@ const NavBar = () => {
         selected={location.pathname.includes('/main')}
       />
       <NavItem
-        onPress={() => navigate('/main')}
+        onPress={() => navigate('/profile')}
         name={'Profile'}
         Icon={ProfileIcon}
         selected={location.pathname.includes('/main')}
