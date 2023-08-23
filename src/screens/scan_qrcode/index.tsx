@@ -1,34 +1,46 @@
 import React, {useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {Camera} from 'react-native-camera-kit';
-import i18n from '../../../../i18n';
-import CrossIcon from '../../../assets/icons/CrossIcon';
+//import i18n from '../../../../i18n';
+import CrossIcon from '../../assets/icons/CrossIcon';
 
-import ExtractLoginFromQrCode from '../utils/ExtractLoginFromQrCode';
+//import ExtractLoginFromQrCode from '../utils/ExtractLoginFromQrCode';
 
 interface Props {
   closeScanner: () => void;
 }
 
 const ScanLoginQrCode = ({closeScanner}: Props) => {
-  const [reading, setReading] = useState(false);
-
+  const [reading, setReading] = useState(true);
   const qrCodeScanned = async (readQrCode: string) => {
     setReading(true);
-    const extractQrcode = ExtractLoginFromQrCode(readQrCode);
+    console.log(readQrCode);
+    //const extractQrcode = ExtractLoginFromQrCode(readQrCode);
 
-    if (extractQrcode) {
-    }
+    //if (extractQrcode) {
+    //}
 
     setReading(false);
-    closeScanner();
+    //closeScanner();
   };
 
-  if (loggingIn) {
+  if (reading) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <Text>{i18n.t<string>('login.qrcode.logging_in')}</Text>
-      </View>
+      <>
+        <Camera
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{flex: 1, width: '100%', height: '100%'}}
+          cameraType="back"
+          scanBarcode
+          showFrame
+          laserColor="red"
+          frameColor="white"
+          onReadCode={async (event: {nativeEvent: {codeStringValue: any}}) => {
+            qrCodeScanned(event.nativeEvent.codeStringValue);
+          }}
+          hideControls
+        />
+      </>
     );
   }
 

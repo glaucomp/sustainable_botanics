@@ -24,10 +24,10 @@ const NavBar = () => {
         }
       />
       <NavItem
-        onPress={() => navigate('/main')}
+        onPress={() => navigate('/scan_qrcode')}
         name={i18n.t('nav.camera')}
         Icon={CameraIcon}
-        selected={location.pathname.includes('/main')}
+        selected={location.pathname.includes('/scan_qrcode')}
       />
       <NavItem
         onPress={() => navigate('/shelf')}

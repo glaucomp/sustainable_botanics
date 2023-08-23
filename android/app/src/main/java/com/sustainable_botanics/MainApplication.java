@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import com.horcrux.svg.SvgPackage;
 import com.reactnativecommunity.blurview.BlurViewPackage;
+import com.rncamerakit.RNCameraKitPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -44,7 +45,8 @@ public class MainApplication extends Application implements ReactApplication {
                             new RNGoogleSigninPackage(),
                             new AsyncStoragePackage(),
                             new SvgPackage(),
-                            new BlurViewPackage() 
+                            new BlurViewPackage(),
+                            new RNCameraKitPackage()
                     );
                 }
 

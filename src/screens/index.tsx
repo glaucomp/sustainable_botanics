@@ -8,6 +8,7 @@ import ForgotPasswordScreen from './forgotPassword';
 import MainScreen from './main';
 import ProfileScreen from './profile';
 import ShelfScreen from './shelf';
+import ScanLoginQrCode from './scan_qrcode';
 
 const Screens = () => {
   const {isSignedIn} = useContext(AuthContext);
@@ -21,6 +22,7 @@ const Screens = () => {
         <>
           <Route path="/" element={<MainScreen />} />
           <Route path="/main" element={<MainScreen />} />
+          <Route path="/scan_qrcode" element={<ScanLoginQrCode />} />
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/shelf" element={<ShelfScreen />} />
         </>
