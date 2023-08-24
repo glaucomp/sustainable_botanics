@@ -1,19 +1,23 @@
 import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, View, TouchableOpacity} from 'react-native';
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import {Camera} from 'react-native-camera-kit';
-import {useLocation, useNavigate} from 'react-router-native';
+import {useNavigate} from 'react-router-native';
+import Spinner from '../../components/Spinner';
 
 //import i18n from '../../../../i18n';
 import CrossIcon from '../../assets/icons/CrossIcon';
 
 //import ExtractLoginFromQrCode from '../utils/ExtractLoginFromQrCode';
 
-interface Props {
-  closeScanner: () => void;
-}
-
-const ScanLoginQrCode = ({closeScanner}: Props) => {
-  const [reading, setReading] = useState(true);
+const ScanQrCode = () => {
+  const [reading, setReading] = useState(false);
   const [modalVisible, setModalVisible] = useState(true);
   const navigate = useNavigate();
 
@@ -24,77 +28,61 @@ const ScanLoginQrCode = ({closeScanner}: Props) => {
 
     //if (extractQrcode) {
     //}
-
+    setModalVisible(!modalVisible);
+    navigate('/shelf');
     setReading(false);
-    //closeScanner();
   };
 
   if (reading) {
     return (
-      <View style={styles.centeredView}>
-        <Modal
-          style={styles.modalView}
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            setModalVisible(!modalVisible);
-          }}>
-          <>
-            <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Camera
-                // eslint-disable-next-line react-native/no-inline-styles
-                style={{flex: 1, width: '100%', height: '100%'}}
-                cameraType="back"
-                scanBarcode
-                showFrame
-                laserColor="red"
-                frameColor="white"
-                onReadCode={async (event: {
-                  nativeEvent: {codeStringValue: any};
-                }) => {
-                  !reading && qrCodeScanned(event.nativeEvent.codeStringValue);
-                }}
-                hideControls
-              />
-              <TouchableOpacity
-                className="absolute ml-auto w-10 h-10 right-6 top-6"
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                  navigate('/main');
-                }}>
-                <CrossIcon classes="text-white" />
-              </TouchableOpacity>
-            </View>
-          </>
-        </Modal>
+      <View className="flex-1 justify-center items-center">
+        <Spinner darkMode />
+        <Text>{i18n.t<string>('login.qrcode.logging_in')}</Text>
       </View>
     );
   }
 
   return (
-    <>
-      <Camera
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{flex: 1, justifyContent: 'flex-end'}}
-        cameraType="back"
-        scanBarcode
-        showFrame
-        laserColor="red"
-        frameColor="white"
-        onReadCode={async (event: {nativeEvent: {codeStringValue: any}}) => {
-          !reading && qrCodeScanned(event.nativeEvent.codeStringValue);
-        }}
-        hideControls
-      />
-      <TouchableOpacity
-        className="absolute ml-auto w-10 h-10 right-6 top-6"
-        onPress={() => closeScanner}>
-        <CrossIcon classes="text-white" />
-      </TouchableOpacity>
-    </>
+    <View className="flex h-full w-full">
+      <Modal
+        style={styles.modalView}
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <>
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Camera
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{flex: 1, width: '100%', height: '100%'}}
+              cameraType="back"
+              scanBarcode
+              showFrame
+              laserColor="red"
+              frameColor="white"
+              onReadCode={async (event: {
+                nativeEvent: {codeStringValue: any};
+              }) => {
+                !reading && qrCodeScanned(event.nativeEvent.codeStringValue);
+              }}
+              hideControls
+            />
+            <TouchableOpacity
+              className="absolute ml-auto w-10 h-10 right-6 top-6"
+              onPress={() => {
+                setModalVisible(!modalVisible);
+                navigate('/main');
+              }}>
+              <CrossIcon classes="text-white" />
+            </TouchableOpacity>
+          </View>
+        </>
+      </Modal>
+    </View>
   );
 };
 
@@ -126,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ScanLoginQrCode;
+export default ScanQrCode;
