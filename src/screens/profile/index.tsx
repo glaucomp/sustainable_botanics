@@ -33,8 +33,8 @@ const ProfileScreen = () => {
   }, []);
 
   return (
-    <ScrollView style={{ backgroundColor: '#063d23' }}>
-      <View style={styles.container}>
+    <ScrollView style={{ backgroundColor: '#052918' }}>
+     <View className="flex-1 h-screen w-screen mt-4">
         <View style={styles.profileContainer}>
           {user && user.photo_url ? (
             <View style={styles.profileInfo}>
@@ -63,11 +63,6 @@ const ProfileScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   profileContainer: {
     alignItems: 'center',
   },

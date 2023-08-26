@@ -21,7 +21,7 @@ const NavBarWrapper = ({children}: Props) => {
     <View className="h-full">
       {showNavBar ? (
         <>
-          <View className="h-full mt-4 pb-20 bg-white">{children}</View>
+          <View className="h-full mt-4 pb-20 bg-green_dark" style={{backgroundColor:''}}>{children}</View>
           <NavBar />
         </>
       ) : (

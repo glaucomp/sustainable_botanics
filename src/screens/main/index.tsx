@@ -38,8 +38,7 @@ const MainScreen = () => {
   }, []);
 
   return (
-    <ScrollView style={{backgroundColor: '#063d23'}}>
-      <View className="flex flex-row justify-center mt-0 p-0">
+      <View className="flex-1 flex-row justify-center items-center p-0" style={{backgroundColor: '#052918'}}>
         <CardFlip style={styles.cardContainer} ref={cardRef}>
           <TouchableOpacity
             activeOpacity={1}
@@ -65,8 +64,7 @@ const MainScreen = () => {
           </TouchableOpacity>
         </CardFlip>
       </View>
-    </ScrollView>
-  );
+    );
 };
 
 const styles = StyleSheet.create({

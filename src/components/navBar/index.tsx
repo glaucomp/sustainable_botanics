@@ -14,7 +14,7 @@ const NavBar = () => {
   const location = useLocation();
 
   return (
-    <View className="h-20 mt-auto flex-row justify-around shadow-md bg-neutral-50 p-3 border-t border-gray-300">
+    <View className="h-20 mt-auto flex-row justify-around shadow-md p-3 border-t" style={{backgroundColor:'#ad8200'}}>
       <NavItem
         onPress={() => navigate('/main')}
         name={i18n.t('nav.home')}

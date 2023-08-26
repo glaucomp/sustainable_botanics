@@ -10,7 +10,7 @@ const ForgotPasswordScreen = () => {
   };
 
   return (
-    <View className="flex h-screen w-screen" style={{ backgroundColor: '#063d23' }}>
+    <View className="flex h-screen w-screen" style={{ backgroundColor: '' }}>
       <View className="justify-center h-screen w-screen p-5">
         <Text className="text-3xl font-extrabold mb-8  text-slate-700">
          Forgot Password Screen

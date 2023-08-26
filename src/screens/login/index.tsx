@@ -86,7 +86,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <ScrollView style={{ backgroundColor: '#063d23' }}>
+    <ScrollView style={{ backgroundColor: '#042918' }}>
       <View className="flex-1 h-screen w-screen justify-center">
         <StyledButton
           type={ButtonType.None}
