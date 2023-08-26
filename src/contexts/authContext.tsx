@@ -13,10 +13,11 @@ export interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>;
   loginGoogle: (
     email_google: string,
-    idToken: string,
     first_name: string,
     last_name: string,
     google_id: string,
+    google_id_token: string,
+    photo_url?: string,
   ) => Promise<boolean>;
   logout: (callback?: () => void) => void;
   currentUser: User | undefined;
@@ -82,19 +83,21 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
   };
   const loginGoogle = async (
     email_google: string,
-    idToken: string,
     first_name: string,
     last_name: string,
     google_id: string,
+    google_id_token: string,
+    photo_url?: string,
   ) => {
     setAuthErrors(undefined);
     const user: User = {
+      id: 0,
       email: email_google,
       first_name: first_name,
-      id: 0,
       last_name: last_name,
-      google_idToken: idToken,
       google_id: google_id,
+      google_id_token: google_id_token,
+      photo_url: photo_url,
     };
     insertUser(user);
     return null;
@@ -147,6 +150,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
     login,
     loginGoogle,
     logout,
+    currentUser,
     isSignedIn,
   };
 

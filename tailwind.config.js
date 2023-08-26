@@ -8,6 +8,7 @@ module.exports = {
         secondary: '#4850A2',
         tertiary: '#32A071',
         neutral: '#0F172A',
+        green_dark: '#063d23',
       },
       height: {
         input: '50px',
