@@ -6,12 +6,16 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Pressable,
+  Platform,
 } from 'react-native';
 import {useNavigate} from 'react-router-native';
 import {AuthContext} from '../../contexts/authContext';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import LabelText from '../../components/LabelText';
 import StyledButton, {ButtonType} from '../../components/StyledButton';
+import i18n from '../../../i18n';
+import ArrowBackIcon from '../../assets/icons/ArrowBackIcon';
 
 const LoginScreen = () => {
   const navigate = useNavigate();
@@ -86,41 +90,42 @@ const LoginScreen = () => {
   };
 
   return (
-    <ScrollView style={{ backgroundColor: '#042918' }}>
-      <View className="flex-1 h-screen w-screen justify-center">
-        <StyledButton
-          type={ButtonType.None}
-          textClassNames="text-sm font-bold text-blue-900"
-          text="<<"
-          className=""
-          onPress={() => onBackPress()}
-        />
-        <View className="m-4">
+    <ScrollView style={{backgroundColor: '#042918'}}>
+      <View className="flex flow-col h-screen w-screen m-4">
+        {Platform.OS === 'android' ? (
+          <View className="mt-10" />
+        ) : (
+          <View className="mt-0" />
+        )}
+        <View className="items-start">
+          <Pressable onPress={() => onBackPress()}>
+            <ArrowBackIcon />
+          </Pressable>
+        </View>
+        <View className="">
           <LabelText
             style={{
               fontFamily: 'Dosis',
               fontWeight: 'bold',
               fontSize: 20,
-              color: '#BEC6AF',
               margin: 10,
               marginTop: 20,
             }}>
-            {signInWithEmail ? 'Sign in with email' : 'Sign in to your account'}
+            {signInWithEmail
+              ? i18n.t('login.sign_in_email')
+              : i18n.t('login.sign_in')}
           </LabelText>
-        </View>
-        <View>
           <LabelText
             style={{
               fontFamily: 'Dosis',
               fontWeight: 'bold',
               fontSize: 18,
-              color: '#BEC6AF',
               margin: 10,
               marginBottom: 20,
             }}>
             {signInWithEmail
-              ? 'Enter your user details below to sign in to you account'
-              : 'Choose the service below that you used to sign up'}
+              ? i18n.t('login.enter_your_user_details')
+              : i18n.t('login.choose_the_service_below')}
           </LabelText>
         </View>
 
@@ -167,6 +172,7 @@ const LoginScreen = () => {
                 title="Sign in with email"
               />
             </View>
+
             <Button
               title={'Sign in with Google'}
               onPress={() => {

@@ -13,6 +13,9 @@ export const englishTranslation = {
   },
   login: {
     sign_in: 'Sign in to your account',
+    sign_in_email:'Sign in with email',
+    enter_your_user_details:'Enter your user details below to sign in to you account',
+    choose_the_service_below: 'Choose the service below that you used to sign up',
     email_address: 'Email address',
     password: 'Password',
     login: 'Login',

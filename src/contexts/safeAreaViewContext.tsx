@@ -20,7 +20,7 @@ export const SafeAreaViewProvider = ({children}: {children: ReactNode}) => {
     <SafeAreaContext.Provider value={value}>
       <SafeAreaView className={darkMode ? 'bg-neutral-800' : 'bg-white'}>
         <StatusBar
-        translucent
+          translucent
           //barStyle={darkMode ? 'light-content' : 'dark-content'}
           backgroundColor={darkMode ? 'black' : 'black'}
         />

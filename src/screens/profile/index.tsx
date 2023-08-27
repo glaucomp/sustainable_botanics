@@ -5,6 +5,7 @@ import {User} from '../../models/User';
 
 import {AuthContext} from '../../contexts/authContext';
 import NoPhotoIcon from '../../assets/icons/NoPhotoIcon';
+import LabelText from '../../components/LabelText';
 
 const ProfileScreen = () => {
   const {logout} = useContext(AuthContext);
@@ -34,7 +35,7 @@ const ProfileScreen = () => {
 
   return (
     <ScrollView style={{ backgroundColor: '#052918' }}>
-     <View className="flex-1 h-screen w-screen mt-4">
+     <View className="flex-1 h-screen w-screen mt-10">
         <View style={styles.profileContainer}>
           {user && user.photo_url ? (
             <View style={styles.profileInfo}>
@@ -48,7 +49,7 @@ const ProfileScreen = () => {
           )}
           {user ? (
             <View style={styles.profileInfo}>
-              <Text style={styles.profileName}>{user.first_name}</Text>
+              <LabelText style={styles.profileName}>{user.first_name + " " + user.last_name}</LabelText>
             </View>
           ) : (
             <Text></Text>
@@ -76,8 +77,11 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   profileName: {
-    fontSize: 24,
-    fontWeight: 'bold',
+      fontFamily: 'Dosis',
+      fontWeight: 'bold',
+      fontSize: 20,
+      margin: 10,
+      marginTop: 20,
   },
   buttonContainer: {
     marginTop: 20,
