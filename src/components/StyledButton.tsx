@@ -28,7 +28,7 @@ const StyledButton = ({
   <Pressable
     {...props}
     className={classNames(
-      'p-3 rounded-md h-12 items-center justify-center active:opacity-50',
+      'p-3 rounded-md h-14 items-center justify-center active:opacity-50',
       type === ButtonType.Primary && 'bg-yellow-400',
       type === ButtonType.Secondary && 'bg-blue-600',
       type === ButtonType.Outline &&
