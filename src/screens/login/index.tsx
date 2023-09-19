@@ -20,7 +20,8 @@ import LoginStyledButton, {
   LoginButtonType,
 } from '../../components/LoginStyledButton';
 import StyledButton, {ButtonType} from '../../components/StyledButton';
-import classNames from '../../utils/classNames';
+import FormInput from '../../components/FormInput';
+import SignUp from './components/SignUp';
 
 const LoginScreen = () => {
   const navigate = useNavigate();
@@ -33,7 +34,6 @@ const LoginScreen = () => {
   const handlePress = () => {
     navigate('/forgot_password');
   };
-
 
   const openModal = () => {
     setModalSignUp(true);
@@ -250,21 +250,20 @@ const LoginScreen = () => {
           )}
         </View>
         <View className="absolute bottom-0 left-0 right-0">
-          <StyledButton
+        {!signInWithEmail ?  <StyledButton
             text="Sign Up"
             type={ButtonType.None}
             className="mb-4"
             textClassNames="text-gray_light text-xl"
             onPress={() => openModal()}
-          />
+          /> : null}
+         
           <Modal
+            className="bg-blue-500"
             visible={modalSignUp}
             animationType="slide"
-            transparent={false}>
-            <View className="flex justify-center items-center content-center mt-10"> 
-              <Text>This is a Modal</Text>
-              <Button title="Close Modal" onPress={closeModal} />
-            </View>
+            transparent={true}>
+            <SignUp setModalSignUp={setModalSignUp}/>
           </Modal>
         </View>
       </ScrollView>
