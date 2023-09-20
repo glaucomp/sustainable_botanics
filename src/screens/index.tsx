@@ -9,6 +9,7 @@ import MainScreen from './main';
 import ProfileScreen from './profile';
 import ShelfScreen from './shelf';
 import ScanQrCode from './scan_qrcode';
+import WriteBluetooth from './writeBluetooth';
 
 const Screens = () => {
   const {isSignedIn} = useContext(AuthContext);
@@ -25,6 +26,8 @@ const Screens = () => {
           <Route path="/scan_qrcode" element={<ScanQrCode />} />
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/shelf" element={<ShelfScreen />} />
+          <Route path="/write_bluetooth/:deviceId"  element={<WriteBluetooth itemSelected={''} />} />
+
         </>
       ) : null}
     </Routes>

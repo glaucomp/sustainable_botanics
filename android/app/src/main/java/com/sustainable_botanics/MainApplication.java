@@ -19,7 +19,7 @@ import java.util.List;
 import com.horcrux.svg.SvgPackage;
 import com.reactnativecommunity.blurview.BlurViewPackage;
 import com.rncamerakit.RNCameraKitPackage;
-
+import com.rusel.RCTBluetoothSerial.*;
 public class MainApplication extends Application implements ReactApplication {
 
     private final ReactNativeHost mReactNativeHost =
@@ -46,7 +46,8 @@ public class MainApplication extends Application implements ReactApplication {
                             new AsyncStoragePackage(),
                             new SvgPackage(),
                             new BlurViewPackage(),
-                            new RNCameraKitPackage()
+                            new RNCameraKitPackage(),
+                            new RCTBluetoothSerialPackage()
                     );
                 }
 

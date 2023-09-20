@@ -19,6 +19,7 @@
     "react": "18.2.0",
     "react-i18next": "^13.2.0",
     "react-native": "0.72.4",
+    "react-native-bluetooth-serial": "^1.0.0-rc1",
     "react-native-camera-kit": "^13.0.0",
     "react-native-card-flip": "^1.0.7",
     "react-native-splash-screen": "^3.3.0",
