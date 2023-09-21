@@ -56,6 +56,9 @@ BluetoothSerial.write("green")
   //.catch((error: any) => {
   //console.error('Error connecting to device:', error);
   //});
+
+  const filteredDevices = availableDevices.filter(device => device.name.startsWith('SB'));
+
   return (
     <View style={{flex: 1, backgroundColor: '#052918'}}>
       <Text className="text-3xl font-extrabold mb-2 text-slate-700"></Text>
@@ -65,7 +68,7 @@ BluetoothSerial.write("green")
       </Text>
 
       <FlatList
-        data={availableDevices}
+        data={filteredDevices}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <TouchableOpacity

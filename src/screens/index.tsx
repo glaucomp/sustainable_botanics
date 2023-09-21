@@ -26,7 +26,7 @@ const Screens = () => {
           <Route path="/scan_qrcode" element={<ScanQrCode />} />
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/shelf" element={<ShelfScreen />} />
-          <Route path="/write_bluetooth/:deviceId"  element={<WriteBluetooth itemSelected={''} />} />
+          <Route path="/write_bluetooth/:deviceId"  element={<WriteBluetooth setSearchType={undefined} />} />
 
         </>
       ) : null}

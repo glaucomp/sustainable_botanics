@@ -1,25 +1,22 @@
-import React, {useState} from 'react';
-import {Text, TouchableOpacity, View, Pickera, Button} from 'react-native';
+import React, {Dispatch, SetStateAction, useState} from 'react';
+import {Text, TouchableOpacity, View, Button} from 'react-native';
 import BluetoothSerial from 'react-native-bluetooth-serial';
 import CrossIcon from '../../assets/icons/CrossIcon';
 import {useNavigate, useParams} from 'react-router-native';
 import FormInput from '../../components/FormInput';
+import { Dropdown } from './components/Dropdown';
 
-interface Props {
-  itemSelected: string;
-}
 
-const WhiteBluetooth = ({itemSelected}: Props) => {
+const WhiteBluetooth = () => {
   const navigate = useNavigate();
   const {deviceId = '-1'} = useParams();
   const [selectedValue, setSelectedValue] = useState('red');
   const [nameError, setNameError] = useState<string>();
   const [name, setName] = useState<string>();
+  const [selectedItem, setSelectedItem] = useState<string>('');
 
-  console.log('PASSOU', 'AQUI');
-
-  const handleCheckboxToggle = (color: string) => {
-    connectToDevice('98:D3:31:F6:E2:5B', color);
+  const handleWriteBluetooth = (color: string) => {
+    connectToDevice(deviceId, color);
   };
 
   const connectToDevice = (deviceId: any, color: string) => {
@@ -55,6 +52,7 @@ const WhiteBluetooth = ({itemSelected}: Props) => {
     <View
       className="flex h-screen w-screen justify-center items-center content-center"
       style={{backgroundColor: '#042918'}}>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <TouchableOpacity
         className="ml-auto w-10 h-10 mr-4 mb-4"
         onPress={() => {
@@ -62,20 +60,11 @@ const WhiteBluetooth = ({itemSelected}: Props) => {
         }}>
         <CrossIcon classes="text-white" />
       </TouchableOpacity>
-
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text className="text-xl font-semibold mb-2 text-white">
           {deviceId}
         </Text>
-        <FormInput
-          label=""
-          onChangeText={text => {
-            setNameError(undefined);
-            setName(text);
-          }}
-          //error={titleError}
-        />
-        <Button title="Save" onPress={() => handleCheckboxToggle(name)} />
+        <Dropdown setSelectedItem={setSelectedItem} />
+        {selectedItem &&  handleWriteBluetooth(selectedItem) }
       </View>
     </View>
   );
