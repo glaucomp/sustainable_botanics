@@ -6,6 +6,7 @@ export const englishTranslation = {
     home: 'Home',
     camera: 'Camera',
     shelf: 'Shelf',
+    cromo: 'Cromo',
     profile: 'Profile',
   },
   warnings: {

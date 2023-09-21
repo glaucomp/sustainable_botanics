@@ -6,6 +6,8 @@ import {User} from '../../models/User';
 import {AuthContext} from '../../contexts/authContext';
 import NoPhotoIcon from '../../assets/icons/NoPhotoIcon';
 import LabelText from '../../components/LabelText';
+import StyledButton, { ButtonType } from '../../components/StyledButton';
+import { LoginButtonType } from '../../components/LoginStyledButton';
 
 const ProfileScreen = () => {
   const {logout} = useContext(AuthContext);
@@ -56,7 +58,7 @@ const ProfileScreen = () => {
           )}
         </View>
         <View style={styles.buttonContainer}>
-          <Button onPress={handlePress} title="Log out" />
+          <StyledButton  type={ButtonType.Secondary} onPress={handlePress} text="Log out" className="" />
         </View>
       </View>
     </ScrollView>

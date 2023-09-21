@@ -30,7 +30,7 @@ const StyledButton = ({
     className={classNames(
       'p-3 rounded-md h-14 items-center justify-center active:opacity-50',
       type === ButtonType.Primary && 'bg-yellow-400',
-      type === ButtonType.Secondary && 'bg-blue-600',
+      type === ButtonType.Secondary && 'bg-transparent',
       type === ButtonType.Outline &&
         'bg-white border border-neutral-300 active:bg-neutral-100',
       (type === ButtonType.None || type === ButtonType.Link) &&

@@ -9,7 +9,8 @@ import MainScreen from './main';
 import ProfileScreen from './profile';
 import ShelfScreen from './shelf';
 import ScanQrCode from './scan_qrcode';
-import WriteBluetooth from './writeBluetooth';
+import WriteBluetooth from './cromo/writeBluetooth';
+import CromoScreen from './cromo';
 
 const Screens = () => {
   const {isSignedIn} = useContext(AuthContext);
@@ -23,11 +24,11 @@ const Screens = () => {
         <>
           <Route path="/" element={<MainScreen />} />
           <Route path="/main" element={<MainScreen />} />
-          <Route path="/scan_qrcode" element={<ScanQrCode />} />
-          <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/shelf" element={<ShelfScreen />} />
-          <Route path="/write_bluetooth/:deviceId"  element={<WriteBluetooth setSearchType={undefined} />} />
-
+          <Route path="/scan_qrcode" element={<ScanQrCode />} />
+          <Route path="/cromo" element={<CromoScreen />} />
+          <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/write_bluetooth/:deviceId"  element={<WriteBluetooth/>} />
         </>
       ) : null}
     </Routes>

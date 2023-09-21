@@ -8,13 +8,16 @@ import ShelfIcon from '../../assets/icons/ShelfIcon';
 
 import NavItem from './NavItem';
 import i18n from '../../../i18n';
+import CromoIcon from '../../assets/icons/CromoIcon';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
-    <View className="h-20 mt-auto flex-row justify-around shadow-md p-3 border-t" style={{backgroundColor:'#ad8200'}}>
+    <View
+      className="h-20 mt-auto flex-row justify-around shadow-md p-3 border-t"
+      style={{backgroundColor: '#ad8200'}}>
       <NavItem
         onPress={() => navigate('/main')}
         name={i18n.t('nav.home')}
@@ -22,6 +25,12 @@ const NavBar = () => {
         selected={
           location.pathname.includes('/main') || location.pathname === '/'
         }
+      />
+      <NavItem
+        onPress={() => navigate('/cromo')}
+        name={i18n.t('nav.cromo')}
+        Icon={CromoIcon}
+        selected={location.pathname.includes('/cromo')}
       />
       <NavItem
         onPress={() => navigate('/scan_qrcode')}
