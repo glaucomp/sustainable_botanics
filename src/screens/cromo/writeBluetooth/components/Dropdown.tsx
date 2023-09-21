@@ -20,13 +20,14 @@ export const Dropdown = ({setSelectedItem}: Props) => {
         <RNPickerSelect
             onValueChange={(value) => setSelectedItem(value)}
             items={[
-                { label: 'Red', value: 'red' },
-                { label: 'Blue', value: 'blue' },
+                { label: 'Purple', value: 'magenta' },
+                { label: 'Indigo', value: 'blue' },
+                { label: 'Blue', value: 'cyan' },
                 { label: 'Green', value: 'green' },
                 { label: 'Yellow', value: 'yellow' },
-                { label: 'Magenta', value: 'magenta' },
-                { label: 'Cyan', value: 'cyan' },
-            ]}
+                { label: 'Orange', value: 'orange' },
+                { label: 'Red', value: 'red' },
+              ]}
             style={dropdownStyles}
         />
     );

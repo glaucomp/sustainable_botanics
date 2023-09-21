@@ -37,7 +37,7 @@ const ProfileScreen = () => {
 
   return (
     <ScrollView style={{ backgroundColor: '#052918' }}>
-     <View className="flex-1 h-screen w-screen mt-10">
+     <View className="flex-1 mt-10">
         <View style={styles.profileContainer}>
           {user && user.photo_url ? (
             <View style={styles.profileInfo}>

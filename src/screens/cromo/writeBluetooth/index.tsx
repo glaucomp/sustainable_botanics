@@ -1,25 +1,24 @@
-import React, {Dispatch, SetStateAction, useState} from 'react';
-import {Text, TouchableOpacity, View, Button} from 'react-native';
+import React, {useState} from 'react';
+import {Image, TouchableOpacity, View} from 'react-native';
 import BluetoothSerial from 'react-native-bluetooth-serial';
 import CrossIcon from '../../../assets/icons/CrossIcon';
 import {useNavigate, useParams} from 'react-router-native';
-import { Dropdown } from './components/Dropdown';
+import {Dropdown} from './components/Dropdown';
 import LabelText from '../../../components/LabelText';
-
+import ImageLoader from '../../../components/ImageLoader';
 
 const WhiteBluetooth = () => {
   const navigate = useNavigate();
   const {deviceId = '-1'} = useParams();
   const [selectedItem, setSelectedItem] = useState<string>('');
   const parts = deviceId.split(';');
-    const deviceIdSplited = parts[1];
-    const name = parts[0];
+  const deviceIdSplited = parts[1];
+  const name = parts[0];
   const handleWriteBluetooth = (color: string) => {
     connectToDevice(color);
   };
 
   const connectToDevice = (color: string) => {
-  
     console.log('trying to connecting to device:', deviceIdSplited);
     BluetoothSerial.connect(deviceIdSplited)
       .then(() => {
@@ -33,7 +32,7 @@ const WhiteBluetooth = () => {
               .then(() => {
                 console.log(`disconnected`);
               })
-              .catch(err => {
+              .catch((err: any) => {
                 console.error(`Error disconnecting from the device: ${err}`);
               });
           })
@@ -48,7 +47,7 @@ const WhiteBluetooth = () => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: '#052918',padding:20}}>
+    <View style={{flex: 1, backgroundColor: '#052918', padding: 20}}>
       <TouchableOpacity
         className="ml-auto w-10 h-10 mr-4 mb-4 mt-20"
         onPress={() => {
@@ -56,11 +55,56 @@ const WhiteBluetooth = () => {
         }}>
         <CrossIcon classes="text-white" />
       </TouchableOpacity>
-        <LabelText className="text-xl font-semibold mb-2 text-white">
-          {name}
-        </LabelText>
-        <Dropdown setSelectedItem={setSelectedItem} />
-        {selectedItem &&  handleWriteBluetooth(selectedItem) }
+      <LabelText className="text-xl font-semibold mb-2 text-white">
+        {name}
+      </LabelText>
+      <Dropdown setSelectedItem={setSelectedItem} />
+      <View className="flex justify-center items-center">
+        {selectedItem === 'red' && (
+          <Image
+            source={require('../../../assets/root_chakra.png')}
+            style={{tintColor: 'white' }} 
+          />
+        ) }
+        {selectedItem === 'orange' && (
+          <Image
+            source={require('../../../assets/sacral_chakra.png')}
+            style={{tintColor: 'white' }} 
+          />
+        )} 
+        { selectedItem === 'yellow' && (
+          <Image
+            source={require('../../../assets/solar_plexus_chakra.png')}
+            style={{tintColor: 'white' }} 
+          />
+        )} 
+        { selectedItem === 'green' && (
+          <Image
+            source={require('../../../assets/heart_chakra.png')}
+            style={{tintColor: 'white' }} 
+          />
+        ) }
+        {selectedItem === 'cyan' && (
+          <Image
+            source={require('../../../assets/throat_chakra.png')}
+            style={{tintColor: 'white' }} 
+          />
+        )}
+        { selectedItem === 'blue' && (
+          <Image
+            source={require('../../../assets/third_eye_chakra.png')}
+            style={{tintColor: 'white' }} 
+          />
+        )}
+        {selectedItem === 'magenta' && (
+          <Image
+            source={require('../../../assets/crown_chakra.png')}
+            style={{tintColor: 'white' }} 
+          />
+        )}
+      </View>
+
+      {selectedItem && handleWriteBluetooth(selectedItem)}
     </View>
   );
 };

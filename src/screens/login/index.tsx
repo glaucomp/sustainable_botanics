@@ -20,7 +20,6 @@ import LoginStyledButton, {
   LoginButtonType,
 } from '../../components/LoginStyledButton';
 import StyledButton, {ButtonType} from '../../components/StyledButton';
-import FormInput from '../../components/FormInput';
 import SignUp from './components/SignUp';
 
 const LoginScreen = () => {
