@@ -8,14 +8,38 @@ import {
 } from 'react-native';
 import CardFlip from 'react-native-card-flip';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {saveWithExpiration, getWithExpiration} from '../../utils/storage';
 
 const MainScreen = () => {
   const [dailyAffirmation, setDailyAffirmation] = useState('');
 
   const cardRef = useRef<CardFlip>(null);
 
+  const updateDailyAffirmation = async () => {
+    try {
+      const response = await axios.post(
+        'https://sustainablebotanics.shop/list_sb_daily_affirmation.php',
+        {
+          headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+          },
+        },
+      );
+
+      console.log('Response:', response.data);
+      saveWithExpiration(
+        'daily_affirmation',
+        response.data.daily_affirmation_phrase,
+      );
+      setDailyAffirmation(response.data.daily_affirmation_phrase);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   const flipCard = () => {
+    updateDailyAffirmation();
     if (cardRef.current) {
       cardRef.current.flip();
     }
@@ -29,37 +53,23 @@ const MainScreen = () => {
   useEffect(() => {
     const flipToSecondSide = () => {
       if (cardRef.current) {
-        setTimeout(() => {
-          if (cardRef.current) {
-            //cardRef.current.flip();
-          }
-        }, 100);
+        if (cardRef.current) {
+          cardRef.current.flip();
+        }
       }
     };
+    async function getDailyAffirmation() {
+      const dailyAffirmation = await getWithExpiration('daily_affirmation');
+      console.log('retrive :', dailyAffirmation);
 
-    flipToSecondSide();
+      if (dailyAffirmation) {
+        setDailyAffirmation(dailyAffirmation);
+        console.log('setDailyAffirmation :', dailyAffirmation);
+        flipToSecondSide();
+      }
+    }
     getDailyAffirmation();
   }, []);
-
-  async function getDailyAffirmation() {
-    try {
-      const response = await axios.post(
-        'https://sustainablebotanics.shop/list_sb_daily_affirmation.php',
-        {
-          headers: {
-            accept: 'application/json',
-            'content-type': 'application/json',
-          },
-        },
-      );
-
-      console.log('Response:', response.data);
-      AsyncStorage.setItem('daily_affirmation', JSON.stringify(response.data));
-      setDailyAffirmation(response.data.daily_affirmation_phrase);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
 
   return (
     <View
@@ -80,14 +90,25 @@ const MainScreen = () => {
               resizeMode: 'cover',
             }}
           />
-          <Text style={styles.label1}>Glauco</Text>
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={1}
           style={[styles.card, styles.card2]}
           onPress={shakeCard}>
           <View style={styles.container_text}>
-            <Text style={[styles.label2]}>{dailyAffirmation}</Text>
+            <ImageBackground
+              source={require('../../assets/daily_01.png')}
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex: 1,
+                
+              }}
+              imageStyle={{
+                resizeMode: 'cover',
+              }}>
+              <Text style={[styles.label2]}>{dailyAffirmation}</Text>
+            </ImageBackground>
           </View>
         </TouchableOpacity>
       </CardFlip>
@@ -103,12 +124,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   cardContainer: {
-    width: 280,
-    height: 400,
+    width: 350,
+    height: 500,
   },
   card: {
-    width: 280,
-    height: 400,
+    width: 350,
+    height: 500,
     backgroundColor: '#FE474C',
     borderRadius: 5,
     shadowColor: 'rgba(0,0,0,0.5)',
@@ -146,7 +167,7 @@ const styles = StyleSheet.create({
   container_text: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 10, // Optional: Add padding to the container if needed
+    paddingHorizontal: 0,
   },
 });
 

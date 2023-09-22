@@ -63,43 +63,43 @@ const WhiteBluetooth = () => {
         {selectedItem === 'red' && (
           <Image
             source={require('../../../assets/root_chakra.png')}
-            style={{tintColor: 'white' }} 
+            style={{tintColor: 'red' }} 
           />
         ) }
         {selectedItem === 'orange' && (
           <Image
             source={require('../../../assets/sacral_chakra.png')}
-            style={{tintColor: 'white' }} 
+            style={{tintColor: 'orange' }} 
           />
         )} 
         { selectedItem === 'yellow' && (
           <Image
             source={require('../../../assets/solar_plexus_chakra.png')}
-            style={{tintColor: 'white' }} 
+            style={{tintColor: 'yellow' }} 
           />
         )} 
         { selectedItem === 'green' && (
           <Image
             source={require('../../../assets/heart_chakra.png')}
-            style={{tintColor: 'white' }} 
+            style={{tintColor: 'green' }} 
           />
         ) }
         {selectedItem === 'cyan' && (
           <Image
             source={require('../../../assets/throat_chakra.png')}
-            style={{tintColor: 'white' }} 
+            style={{tintColor: 'cyan' }} 
           />
         )}
         { selectedItem === 'blue' && (
           <Image
             source={require('../../../assets/third_eye_chakra.png')}
-            style={{tintColor: 'white' }} 
+            style={{tintColor: 'blue' }} 
           />
         )}
         {selectedItem === 'magenta' && (
           <Image
             source={require('../../../assets/crown_chakra.png')}
-            style={{tintColor: 'white' }} 
+            style={{tintColor: 'magenta' }} 
           />
         )}
       </View>
