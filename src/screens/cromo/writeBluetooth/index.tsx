@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, Text, TouchableOpacity, View} from 'react-native';
 import BluetoothSerial from 'react-native-bluetooth-serial';
 import CrossIcon from '../../../assets/icons/CrossIcon';
 import {useNavigate, useParams} from 'react-router-native';
 import {Dropdown} from './components/Dropdown';
 import LabelText from '../../../components/LabelText';
-import ImageLoader from '../../../components/ImageLoader';
+import Spinner from '../../../components/Spinner';
+import i18n from '../../../../i18n';
 
 const WhiteBluetooth = () => {
   const navigate = useNavigate();
@@ -17,34 +18,58 @@ const WhiteBluetooth = () => {
   const handleWriteBluetooth = (color: string) => {
     connectToDevice(color);
   };
+  const [reading, setReading] = useState(false);
 
   const connectToDevice = (color: string) => {
     console.log('trying to connecting to device:', deviceIdSplited);
-    BluetoothSerial.connect(deviceIdSplited)
+    setReading(true);
+    try{
+      BluetoothSerial.connect(deviceIdSplited)
       .then(() => {
         console.log('Connected to device:', deviceIdSplited);
+        setReading(false);
         BluetoothSerial.write(color)
-          .then((bytesWritten: any) => {
+          .then(() => {
             console.log('Bytes written:', color);
-
             // Disconnect from the device
-            BluetoothSerial.disconnect()
-              .then(() => {
-                console.log(`disconnected`);
-              })
-              .catch((err: any) => {
-                console.error(`Error disconnecting from the device: ${err}`);
-              });
+            //BluetoothSerial.disconnect()
+              //.then(() => {
+                //console.log(`disconnected`);
+              //})
+              //.catch((err: any) => {
+                //console.error(`Error disconnecting from the device: ${err}`);
+                //setReading(false);
+              //});
           })
           .catch((error: any) => {
             console.error('Error writing data:', error);
             BluetoothSerial.disconnect();
+            setReading(false);
           });
       })
       .catch((error: any) => {
+        //Alert.alert(
+         //'Error connecting to device'
+       //)
         console.error('Error connecting to device:', error);
+        setSelectedItem('');
+        setReading(false);
+        //navigate('/cromo');
       });
+    }catch(e){
+      console.log('error', e);
+    }
+   
   };
+
+  if (reading) {
+    return (
+      <View className="flex-1 justify-center items-center"  style={{backgroundColor: '#052918'}}>
+        <Spinner  />
+        <Text  className="text-white mt-2" >{i18n.t('write_bluetooth.loading')}</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={{flex: 1, backgroundColor: '#052918', padding: 20}}>

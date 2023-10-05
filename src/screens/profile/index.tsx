@@ -7,7 +7,6 @@ import {AuthContext} from '../../contexts/authContext';
 import NoPhotoIcon from '../../assets/icons/NoPhotoIcon';
 import LabelText from '../../components/LabelText';
 import StyledButton, { ButtonType } from '../../components/StyledButton';
-import { LoginButtonType } from '../../components/LoginStyledButton';
 
 const ProfileScreen = () => {
   const {logout} = useContext(AuthContext);

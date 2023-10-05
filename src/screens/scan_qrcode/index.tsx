@@ -13,6 +13,8 @@ import Spinner from '../../components/Spinner';
 
 //import i18n from '../../../../i18n';
 import CrossIcon from '../../assets/icons/CrossIcon';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Plant } from '../../models/Plant';
 
 //import ExtractLoginFromQrCode from '../utils/ExtractLoginFromQrCode';
 
@@ -28,6 +30,15 @@ const ScanQrCode = () => {
 
     //if (extractQrcode) {
     //}
+
+    const plat: Plant = {
+      name: 'test',
+      gif: 'scan_1',
+      id: 1,
+    };
+
+    AsyncStorage.setItem('plant', JSON.stringify(plat));
+
     setModalVisible(!modalVisible);
     navigate('/shelf');
     setReading(false);

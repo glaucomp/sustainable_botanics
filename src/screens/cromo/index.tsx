@@ -1,20 +1,68 @@
-import React, {useState} from 'react';
-import {Text, FlatList, TouchableOpacity, View, Modal} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, TouchableOpacity, View, Modal, PermissionsAndroid} from 'react-native';
 import BluetoothSerial from 'react-native-bluetooth-serial';
 import {useNavigate} from 'react-router-native';
 import LabelText from '../../components/LabelText';
 
 const CromoScreen = () => {
   const navigate = useNavigate();
-
   const [availableDevices, setAvailableDevices] = useState([]);
 
-  BluetoothSerial.list().then((devices: any) => {
-    // 'devices' will contain a list of nearby Bluetooth devices
-    setAvailableDevices(devices);
-    //console.log('Available devices: ', devices);
-    //connectToDevice("98:D3:31:F6:E2:5B");
-  });
+  useEffect(() => {
+    // Request Bluetooth permissions when the component is mounted
+    async function requestBluetoothPermission() {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT,
+          {
+            title: 'Bluetooth Permission',
+            message: 'Sustainable Botanics needs access to Bluetooth.',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          }
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('Bluetooth permission granted');
+          BluetoothSerial.requestEnable();
+          // List available Bluetooth devices
+          BluetoothSerial.list().then(devices => {
+            setAvailableDevices(devices);
+          });
+        } else {
+          console.log('Bluetooth permission denied');
+        }
+      } catch (err) {
+        console.error('Error requesting Bluetooth permission:', err);
+      }
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN,
+          {
+            title: 'Bluetooth Permission',
+            message: 'Sustainable Botanics needs access to Bluetooth.',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          }
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('Bluetooth permission granted');
+          BluetoothSerial.requestEnable();
+          // List available Bluetooth devices
+          BluetoothSerial.list().then(devices => {
+            setAvailableDevices(devices);
+          });
+        } else {
+          console.log('Bluetooth permission denied');
+        }
+      } catch (err) {
+        console.error('Error requesting Bluetooth permission:', err);
+      }
+    }
+    // Call the permission request function when the component mounts
+    requestBluetoothPermission();
+  }, []); 
   
   const filteredDevices = availableDevices.filter(device =>
     device.name.startsWith('SB'),

@@ -35,4 +35,7 @@ export const englishTranslation = {
     reset_email_sent: 'Reset email sent',
     please_check_inbox: 'Please check your inbox',
   },
+  write_bluetooth: {
+    loading: 'Loading...',
+  },
 };

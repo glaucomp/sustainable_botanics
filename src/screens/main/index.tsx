@@ -102,7 +102,7 @@ const MainScreen = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 flex: 1,
-                
+            
               }}
               imageStyle={{
                 resizeMode: 'cover',

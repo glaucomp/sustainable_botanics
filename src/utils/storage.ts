@@ -1,9 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {User} from '../models/User';
+import { Plant } from '../models/Plant';
 
 export enum StorageKeys {
   user = 'user',
   accessToken = 'access_token',
+  plant = 'plant',
   dailyAffirmation = 'daily_affirmation',
 }
 
@@ -17,6 +19,14 @@ export const getUserFromStorage = async () => {
 
 export const getAccessTokenFromStorage = async () => {
   return await AsyncStorage.getItem(StorageKeys.accessToken);
+};
+
+export const getPlantsShelfStorage = async () => {
+  const plant = await AsyncStorage.getItem(StorageKeys.plant);
+  if (!plant) {
+    return null;
+  }
+  return JSON.parse(plant) as Plant;
 };
 
 // Function to save a value with an expiration time
